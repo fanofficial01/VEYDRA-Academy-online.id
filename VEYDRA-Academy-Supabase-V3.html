@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VEYDRA Academy</title>
+
+<style>
+:root{
+  --bg:#080a0b;
+  --panel:#101314;
+  --panel2:#151819;
+  --line:#252a2b;
+  --text:#f2f4f4;
+  --muted:#8d9697;
+  --green:#73e6a2;
+  --green2:#4bc87e;
+  --danger:#ff6868;
+  --radius:18px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(115,230,162,.08),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* AUTH */
+
+.auth{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.auth-box{
+  width:430px;
+  max-width:100%;
+  background:rgba(16,19,20,.94);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:35px;
+  box-shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:28px;
+}
+
+.logo-mark{
+  width:44px;
+  height:44px;
+  border:1px solid var(--green);
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  color:var(--green);
+}
+
+.logo strong{
+  font-size:19px;
+}
+
+.logo small{
+  display:block;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.auth h1{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.auth-desc{
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:25px;
+}
+
+.form-group{
+  margin-bottom:17px;
+}
+
+.form-group label{
+  display:block;
+  font-size:13px;
+  color:#b8c0c0;
+  margin-bottom:8px;
+}
+
+input,select{
+  width:100%;
+  padding:13px 14px;
+  background:#0b0e0f;
+  border:1px solid var(--line);
+  color:white;
+  border-radius:12px;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:var(--green);
+}
+
+.btn{
+  border:0;
+  padding:12px 17px;
+  border-radius:12px;
+  font-weight:700;
+  transition:.2s;
+}
+
+.btn-primary{
+  background:var(--green);
+  color:#06100a;
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+  background:#8af0b2;
+}
+
+.btn-dark{
+  background:#171b1c;
+  color:white;
+  border:1px solid var(--line);
+}
+
+.btn-danger{
+  background:rgba(255,104,104,.1);
+  color:#ff8b8b;
+  border:1px solid rgba(255,104,104,.25);
+}
+
+.full{
+  width:100%;
+}
+
+.auth-switch{
+  text-align:center;
+  color:var(--muted);
+  margin-top:20px;
+  font-size:14px;
+}
+
+.auth-switch span{
+  color:var(--green);
+  cursor:pointer;
+  font-weight:700;
+}
+
+.demo-login{
+  margin-top:20px;
+  padding:14px;
+  border:1px dashed #303637;
+  border-radius:13px;
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* APP */
+
+.app{
+  display:none;
+  min-height:100vh;
+}
+
+.sidebar{
+  position:fixed;
+  width:245px;
+  height:100vh;
+  background:#0b0e0f;
+  border-right:1px solid var(--line);
+  padding:23px 15px;
+  z-index:50;
+}
+
+.sidebar-logo{
+  padding:8px 10px 25px;
+}
+
+.sidebar-nav{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav-item{
+  border:0;
+  background:transparent;
+  color:#8f9899;
+  padding:12px 13px;
+  border-radius:11px;
+  text-align:left;
+  width:100%;
+}
+
+.nav-item:hover,
+.nav-item.active{
+  background:#151a18;
+  color:var(--green);
+}
+
+.sidebar-bottom{
+  position:absolute;
+  left:15px;
+  right:15px;
+  bottom:20px;
+}
+
+.main{
+  margin-left:245px;
+  min-height:100vh;
+}
+
+.topbar{
+  height:72px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 32px;
+  position:sticky;
+  top:0;
+  background:rgba(8,10,11,.86);
+  backdrop-filter:blur(15px);
+  z-index:30;
+}
+
+.menu-mobile{
+  display:none;
+  background:none;
+  border:0;
+  color:white;
+  font-size:23px;
+}
+
+.user-mini{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#17211b;
+  border:1px solid #31533f;
+  color:var(--green);
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+.page{
+  display:none;
+  padding:32px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.page.active{
+  display:block;
+}
+
+.page-title{
+  margin-bottom:25px;
+}
+
+.page-title h1{
+  font-size:32px;
+}
+
+.page-title p{
+  color:var(--muted);
+  margin-top:7px;
+}
+
+/* CARDS */
+
+.grid{
+  display:grid;
+  gap:17px;
+}
+
+.stats{
+  grid-template-columns:repeat(4,1fr);
+}
+
+.card{
+  background:linear-gradient(145deg,#111516,#0e1112);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:21px;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.stat-number{
+  font-size:29px;
+  font-weight:800;
+  margin-top:9px;
+}
+
+.green{
+  color:var(--green);
+}
+
+.dashboard-grid{
+  grid-template-columns:1.5fr 1fr;
+  margin-top:18px;
+}
+
+.progress{
+  height:8px;
+  background:#202526;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress div{
+  height:100%;
+  background:var(--green);
+  border-radius:20px;
+  transition:.4s;
+}
+
+.course-grid{
+  grid-template-columns:repeat(3,1fr);
+}
+
+.course-card{
+  transition:.25s;
+}
+
+.course-card:hover{
+  transform:translateY(-4px);
+  border-color:#35423a;
+}
+
+.course-icon{
+  width:48px;
+  height:48px;
+  border-radius:13px;
+  background:#162019;
+  color:var(--green);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.course-card h3{
+  margin-bottom:9px;
+}
+
+.course-card p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:14px;
+  margin-bottom:18px;
+}
+
+.course-meta{
+  display:flex;
+  justify-content:space-between;
+  color:#778080;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+/* LESSON */
+
+.lesson-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.lesson{
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#0d1011;
+}
+
+.lesson-left{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.lesson-num{
+  width:32px;
+  height:32px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  background:#171b1c;
+  color:var(--green);
+  font-weight:800;
+}
+
+.lesson.done .lesson-num{
+  background:var(--green);
+  color:#06100a;
+}
+
+/* QUIZ */
+
+.quiz-box{
+  max-width:850px;
+}
+
+.question{
+  font-size:20px;
+  line-height:1.5;
+  margin-bottom:22px;
+}
+
+.options{
+  display:grid;
+  gap:10px;
+}
+
+.option{
+  padding:15px;
+  background:#0c1010;
+  border:1px solid var(--line);
+  color:white;
+  text-align:left;
+  border-radius:12px;
+}
+
+.option:hover{
+  border-color:#53675a;
+}
+
+.option.selected{
+  border-color:var(--green);
+  background:#132019;
+}
+
+.quiz-result{
+  text-align:center;
+  padding:35px;
+}
+
+/* CERT */
+
+.cert-card{
+  border:1px solid #3b4d41;
+  border-radius:20px;
+  padding:45px;
+  text-align:center;
+  background:
+    radial-gradient(circle at center,#17251d,transparent 55%),
+    #0c1010;
+}
+
+.cert-logo{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:5px;
+  color:var(--green);
+}
+
+.cert-title{
+  font-size:42px;
+  margin:20px 0 10px;
+}
+
+.cert-name{
+  font-size:30px;
+  margin:20px 0;
+  color:var(--green);
+}
+
+.cert-course{
+  font-size:18px;
+  color:#c3caca;
+}
+
+.cert-id{
+  margin-top:25px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* VERIFY */
+
+.verify-box{
+  max-width:700px;
+  margin:auto;
+  text-align:center;
+}
+
+.verify-result{
+  margin-top:20px;
+  padding:22px;
+  border-radius:16px;
+  border:1px solid var(--line);
+}
+
+/* TABLE */
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:14px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  color:var(--muted);
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:25px;
+  bottom:25px;
+  background:#151a18;
+  border:1px solid #334238;
+  color:white;
+  padding:14px 18px;
+  border-radius:12px;
+  z-index:200;
+  transform:translateY(100px);
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.3s;
+  }
+
+  .sidebar.open{
+    transform:translateX(0);
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .menu-mobile{
+    display:block;
+  }
+
+  .topbar{
+    padding:0 18px;
+  }
+
+  .page{
+    padding:22px 17px;
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard-grid,
+  .course-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:550px){
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .auth-box{
+    padding:25px;
+  }
+
+  .cert-card{
+    padding:25px 15px;
+  }
+
+  .cert-title{
+    font-size:30px;
+  }
+
+  .cert-name{
+    font-size:24px;
+  }
+}
+
+@media print{
+  body *{
+    visibility:hidden;
+  }
+
+  #certificatePrint,
+  #certificatePrint *{
+    visibility:visible;
+  }
+
+  #certificatePrint{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+  }
+
+  .no-print{
+    display:none!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUTH -->
+
+<section id="authScreen" class="auth">
+
+  <!-- LOGIN -->
+
+  <div id="loginBox" class="auth-box">
+
+    <div class="logo">
+      <div class="logo-mark">V</div>
+      <div>
+        <strong>VEYDRA Academy</strong>
+        <small>Independent Learning Platform</small>
+      </div>
+    </div>
+
+    <h1>Selamat datang.</h1>
+    <p class="auth-desc">
+      Masuk ke akun VEYDRA Academy untuk melanjutkan pembelajaranmu.
+    </p>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input id="loginUsername" placeholder="Masukkan username">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input id="loginPassword" type="password" placeholder="Masukkan password">
+    </div>
+
+    <button class="btn btn-primary full" onclick="login()">
+      Masuk ke Academy
+    </button>
+
+    <div class="auth-switch">
+      Belum punya akun?
+      <span onclick="showRegister()">Daftar sekarang</span>
+    </div>
+
+    
+  </div>
+
+  <!-- REGISTER -->
+
+  <div id="registerBox" class="auth-box hidden">
+
+    <div class="logo">
+      <div class="logo-mark">V</div>
+      <div>
+        <strong>VEYDRA Academy</strong>
+        <small>Create your account</small>
+      </div>
+    </div>
+
+    <h1>Buat akun.</h1>
+
+    <p class="auth-desc">
+      Daftar secara mandiri tanpa Gmail atau akun eksternal.
+    </p>
+
+    <div class="form-group">
+      <label>Nama Lengkap</label>
+      <input id="regName" placeholder="Nama lengkap">
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input id="regUsername" placeholder="Contoh: peserta01">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input id="regPassword" type="password" placeholder="Minimal 6 karakter">
+    </div>
+
+    <div class="form-group">
+      <label>Konfirmasi Password</label>
+      <input id="regConfirm" type="password" placeholder="Ulangi password">
+    </div>
+
+    <button class="btn btn-primary full" onclick="register()">
+      Buat Akun
+    </button>
+
+    <div class="auth-switch">
+      Sudah punya akun?
+      <span onclick="showLogin()">Masuk</span>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- APP -->
+
+<section id="app" class="app">
+
+  <!-- SIDEBAR -->
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-logo">
+      <div class="logo">
+        <div class="logo-mark">V</div>
+        <div>
+          <strong>VEYDRA</strong>
+          <small>Academy</small>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <button class="nav-item active" onclick="openPage('dashboard',this)">
+        Dashboard
+      </button>
+
+      <button class="nav-item" onclick="openPage('courses',this)">
+        Kursus
+      </button>
+
+      <button class="nav-item" onclick="openPage('quiz',this)">
+        Quiz
+      </button>
+
+      <button class="nav-item" onclick="openPage('progress',this)">
+        Progress
+      </button>
+
+      <button class="nav-item" onclick="openPage('certificate',this)">
+        Sertifikat
+      </button>
+
+      <button class="nav-item" onclick="openPage('verify',this)">
+        Verifikasi
+      </button>
+
+      <button id="founderNav" class="nav-item hidden"
+              onclick="openPage('founder',this)">
+        Founder Dashboard
+      </button>
+
+      <button class="nav-item" onclick="openPage('profile',this)">
+        Profil
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="nav-item btn-danger" onclick="logout()">
+        Keluar
+      </button>
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <button class="menu-mobile" onclick="toggleSidebar()">☰</button>
+
+      <div>
+        <b id="topTitle">Dashboard</b>
+      </div>
+
+      <div class="user-mini">
+        <div>
+          <small id="topRole" style="color:var(--muted)">Student</small>
+        </div>
+        <div class="avatar" id="avatar">V</div>
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="page active">
+
+      <div class="page-title">
+        <h1>Halo, <span id="dashName"></span>.</h1>
+        <p>Selamat datang kembali di VEYDRA Academy.</p>
+      </div>
+
+      <div class="grid stats">
+
+        <div class="card">
+          <div class="stat-label">Kursus</div>
+          <div class="stat-number" id="statCourses">0</div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">Progress</div>
+          <div class="stat-number green" id="statProgress">0%</div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">Quiz Score</div>
+          <div class="stat-number" id="statScore">-</div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">Sertifikat</div>
+          <div class="stat-number" id="statCertificate">0</div>
+        </div>
+
+      </div>
+
+      <div class="grid dashboard-grid">
+
+        <div class="card">
+          <h3>Progress Pembelajaran</h3>
+          <p style="color:var(--muted);margin:8px 0 18px">
+            Selesaikan seluruh materi untuk mendapatkan sertifikat.
+          </p>
+
+          <div class="progress">
+            <div id="dashProgressBar" style="width:0%"></div>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:9px;font-size:13px;color:var(--muted)">
+            <span>Progress</span>
+            <span id="dashProgressText">0%</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pengumuman</h3>
+          <p style="color:var(--muted);line-height:1.6;margin-top:12px">
+            Selamat datang di VEYDRA Academy. Mulai pembelajaranmu dari
+            halaman Kursus.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- COURSES -->
+
+    <section id="courses" class="page">
+
+      <div class="page-title">
+        <h1>Kursus</h1>
+        <p>Pilih materi yang ingin kamu pelajari.</p>
+      </div>
+
+      <div id="courseGrid" class="grid course-grid"></div>
+
+    </section>
+
+
+    <!-- QUIZ -->
+
+    <section id="quiz" class="page">
+
+      <div class="page-title">
+        <h1>Knowledge Quiz</h1>
+        <p>Uji pemahamanmu setelah mempelajari materi.</p>
+      </div>
+
+      <div class="card quiz-box" id="quizContainer">
+
+        <div id="quizStart">
+
+          <h2>VEYDRA Academy Basic Quiz</h2>
+
+          <p style="color:var(--muted);line-height:1.7;margin:12px 0 22px">
+            Quiz ini terdiri dari 5 pertanyaan. Nilai minimum
+            untuk menyelesaikan quiz adalah 70.
+          </p>
+
+          <button class="btn btn-primary" onclick="startQuiz()">
+            Mulai Quiz
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROGRESS -->
+
+    <section id="progress" class="page">
+
+      <div class="page-title">
+        <h1>Progress Saya</h1>
+        <p>Pantau perkembangan pembelajaranmu.</p>
+      </div>
+
+      <div class="card">
+
+        <h3>VEYDRA Academy Basic</h3>
+
+        <div style="margin:20px 0">
+
+          <div style="display:flex;justify-content:space-between;margin-bottom:9px">
+            <span style="color:var(--muted)">Materi selesai</span>
+            <span id="progressPercent">0%</span>
+          </div>
+
+          <div class="progress">
+            <div id="progressBar" style="width:0%"></div>
+          </div>
+
+        </div>
+
+        <div id="lessonList" class="lesson-list"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CERTIFICATE -->
+
+    <section id="certificate" class="page">
+
+      <div class="page-title">
+        <h1>Sertifikat</h1>
+        <p>Sertifikat pembelajaran VEYDRA Academy.</p>
+      </div>
+
+      <div id="certificateArea"></div>
+
+    </section>
+
+
+    <!-- VERIFY -->
+
+    <section id="verify" class="page">
+
+      <div class="page-title">
+        <h1>Verifikasi Sertifikat</h1>
+        <p>Periksa keaslian nomor sertifikat VEYDRA Academy.</p>
+      </div>
+
+      <div class="card verify-box">
+
+        <h2>Certificate Verification</h2>
+
+        <p style="color:var(--muted);margin:10px 0 22px">
+          Masukkan nomor sertifikat.
+        </p>
+
+        <input id="verifyInput" placeholder="Contoh: VYD-2026-123456">
+
+        <button class="btn btn-primary" style="margin-top:12px"
+                onclick="verifyCertificate()">
+          Verifikasi
+        </button>
+
+        <div id="verifyResult"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOUNDER -->
+
+    <section id="founder" class="page">
+
+      <div class="page-title">
+        <h1>Founder Dashboard</h1>
+        <p>Panel pengelolaan VEYDRA Academy.</p>
+      </div>
+
+      <div class="grid stats">
+
+        <div class="card">
+          <div class="stat-label">Total Akun</div>
+          <div class="stat-number" id="founderUsers">0</div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">Peserta</div>
+          <div class="stat-number" id="founderStudents">0</div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">Quiz Selesai</div>
+          <div class="stat-number" id="founderQuiz">0</div>
+        </div>
+
+        <div class="card">
+          <div class="stat-label">Sertifikat</div>
+          <div class="stat-number green" id="founderCert">0</div>
+        </div>
+
+      </div>
+
+      <div class="card" style="margin-top:18px">
+
+        <h3>Data Peserta</h3>
+
+        <div class="table-wrap" style="margin-top:15px">
+
+          <table>
+
+            <thead>
+              <tr>
+                <th>Nama</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Progress</th>
+                <th>Quiz</th>
+              </tr>
+            </thead>
+
+            <tbody id="userTable"></tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section id="profile" class="page">
+
+      <div class="page-title">
+        <h1>Profil</h1>
+        <p>Informasi akun kamu.</p>
+      </div>
+
+      <div class="card" style="max-width:700px">
+
+        <div style="display:flex;align-items:center;gap:18px">
+
+          <div class="avatar" id="profileAvatar"
+               style="width:70px;height:70px;font-size:25px">
+            V
+          </div>
+
+          <div>
+            <h2 id="profileName"></h2>
+            <p id="profileUsername" style="color:var(--muted)"></p>
+          </div>
+
+        </div>
+
+        <hr style="border:0;border-top:1px solid var(--line);margin:25px 0">
+
+        <p style="color:var(--muted);margin-bottom:8px">Role</p>
+        <h3 id="profileRole"></h3>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</section>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+/* =========================================
+   SUPABASE CONNECTION
+   Ganti dua nilai di bawah dari:
+   Supabase Dashboard -> Project Settings -> API
+   ========================================= */
+const SUPABASE_URL = "MASUKKAN_PROJECT_URL";
+const SUPABASE_PUBLISHABLE_KEY = "MASUKKAN_PUBLISHABLE_KEY";
+
+const supabaseClient =
+  (SUPABASE_URL.startsWith("http") &&
+   !SUPABASE_URL.includes("MASUKKAN") &&
+   !SUPABASE_PUBLISHABLE_KEY.includes("MASUKKAN"))
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+  : null;
+
+async function supabaseStatus(){
+  if(!supabaseClient) return;
+  console.log("VEYDRA Academy: Supabase siap terhubung.");
+}
+supabaseStatus();
+
+/* =========================================
+   VEYDRA ACADEMY FULL V2
+   FRONTEND / LOCAL STORAGE DEMO
+========================================= */
+
+
+/* DEFAULT USERS */
+
+const DEFAULT_USERS = [
+
+  {
+    name:"Founder VEYDRA",
+    username:"founder",
+    password:"veydra2026",
+    role:"Founder",
+    progress:100,
+    quiz:100,
+    certificate:"VYD-2026-FOUNDER"
+  }
+
+];
+
+
+/* DATABASE */
+
+function getUsers(){
+
+  let users = JSON.parse(
+    localStorage.getItem("veydra_users")
+  );
+
+  if(!users){
+
+    users = DEFAULT_USERS;
+
+    localStorage.setItem(
+      "veydra_users",
+      JSON.stringify(users)
+    );
+
+  }
+
+  return users;
+}
+
+
+function saveUsers(users){
+
+  localStorage.setItem(
+    "veydra_users",
+    JSON.stringify(users)
+  );
+
+}
+
+
+/* CURRENT USER */
+
+let currentUser = JSON.parse(
+  sessionStorage.getItem("veydra_current")
+);
+
+
+/* COURSES */
+
+const courses = [
+
+  {
+    id:1,
+    title:"Mengenal VEYDRA",
+    icon:"01",
+    desc:"Mengenal konsep, visi, lingkungan dan sistem VEYDRA Academy.",
+    lessons:[
+      "Pengenalan VEYDRA",
+      "Konsep Kota VEYDRA",
+      "Struktur Academy",
+      "Etika Peserta",
+      "Evaluasi Dasar"
+    ]
+  },
+
+  {
+    id:2,
+    title:"Dasar Roleplay",
+    icon:"02",
+    desc:"Memahami konsep dasar roleplay dan interaksi di dalam kota.",
+    lessons:[
+      "Apa itu Roleplay",
+      "IC dan OOC",
+      "Metagaming",
+      "Powergaming",
+      "Fair Play"
+    ]
+  },
+
+  {
+    id:3,
+    title:"Menjadi Warga VEYDRA",
+    icon:"03",
+    desc:"Panduan menjadi warga yang aktif dan bertanggung jawab.",
+    lessons:[
+      "Identitas Warga",
+      "Ekonomi",
+      "Pekerjaan",
+      "Kendaraan",
+      "Kehidupan Kota"
+    ]
+  }
+
+];
+
+
+/* QUIZ */
+
+const quizQuestions = [
+
+  {
+    q:"Apa tujuan utama VEYDRA Academy?",
+    options:[
+      "Menyediakan pembelajaran",
+      "Menjual kendaraan",
+      "Membuat game baru",
+      "Menghapus sistem kota"
+    ],
+    answer:0
+  },
+
+  {
+    q:"Apa arti IC dalam roleplay?",
+    options:[
+      "In Character",
+      "Internet Chat",
+      "Internal City",
+      "Instant Control"
+    ],
+    answer:0
+  },
+
+  {
+    q:"Apa yang dimaksud dengan OOC?",
+    options:[
+      "Out Of Character",
+      "Official Online City",
+      "Open Organization Center",
+      "Online Only Character"
+    ],
+    answer:0
+  },
+
+  {
+    q:"Apa yang harus dilakukan ketika menemukan bug?",
+    options:[
+      "Melaporkannya",
+      "Menyebarkannya",
+      "Mengeksploitasinya",
+      "Menjualnya"
+    ],
+    answer:0
+  },
+
+  {
+    q:"Salah satu tujuan roleplay adalah...",
+    options:[
+      "Membangun pengalaman bermain yang imersif",
+      "Mengganggu pemain lain",
+      "Menggunakan semua bug",
+      "Mengabaikan aturan"
+    ],
+    answer:0
+  }
+
+];
+
+let quizIndex=0;
+let quizScore=0;
+
+
+/* AUTH */
+
+function showRegister(){
+
+  document.getElementById("loginBox")
+    .classList.add("hidden");
+
+  document.getElementById("registerBox")
+    .classList.remove("hidden");
+
+}
+
+
+function showLogin(){
+
+  document.getElementById("registerBox")
+    .classList.add("hidden");
+
+  document.getElementById("loginBox")
+    .classList.remove("hidden");
+
+}
+
+
+function register(){
+
+  const name =
+    document.getElementById("regName").value.trim();
+
+  const username =
+    document.getElementById("regUsername").value.trim();
+
+  const password =
+    document.getElementById("regPassword").value;
+
+  const confirm =
+    document.getElementById("regConfirm").value;
+
+
+  if(!name || !username || !password){
+
+    toast("Lengkapi semua data.");
+
+    return;
+
+  }
+
+
+  if(password.length < 6){
+
+    toast("Password minimal 6 karakter.");
+
+    return;
+
+  }
+
+
+  if(password !== confirm){
+
+    toast("Konfirmasi password tidak sama.");
+
+    return;
+
+  }
+
+
+  let users=getUsers();
+
+
+  if(users.some(
+    u=>u.username.toLowerCase()===username.toLowerCase()
+  )){
+
+    toast("Username sudah digunakan.");
+
+    return;
+
+  }
+
+
+  users.push({
+
+    name:name,
+    username:username,
+    password:password,
+    role:"Student",
+    progress:0,
+    quiz:null,
+    certificate:null,
+    completedLessons:[]
+
+  });
+
+
+  saveUsers(users);
+
+
+  toast("Akun berhasil dibuat.");
+
+  document.getElementById("loginUsername").value=username;
+
+  showLogin();
+
+}
+
+
+function login(){
+
+  const username =
+    document.getElementById("loginUsername").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+
+  const user=getUsers().find(
+    u=>u.username.toLowerCase()===username.toLowerCase()
+    && u.password===password
+  );
+
+
+  if(!user){
+
+    toast("Username atau password salah.");
+
+    return;
+
+  }
+
+
+  currentUser=user;
+
+  sessionStorage.setItem(
+    "veydra_current",
+    JSON.stringify(user)
+  );
+
+
+  showApp();
+
+}
+
+
+function logout(){
+
+  sessionStorage.removeItem("veydra_current");
+
+  currentUser=null;
+
+  document.getElementById("app").style.display="none";
+
+  document.getElementById("authScreen").style.display="flex";
+
+  showLogin();
+
+  toast("Kamu telah keluar.");
+
+}
+
+
+/* APP */
+
+function showApp(){
+
+  document.getElementById("authScreen").style.display="none";
+
+  document.getElementById("app").style.display="block";
+
+
+  if(currentUser.role==="Founder"){
+
+    document.getElementById("founderNav")
+      .classList.remove("hidden");
+
+  }else{
+
+    document.getElementById("founderNav")
+      .classList.add("hidden");
+
+  }
+
+
+  updateUserUI();
+
+  renderCourses();
+
+  renderLessons();
+
+  updateDashboard();
+
+  renderCertificate();
+
+}
+
+
+/* USER UI */
+
+function updateUserUI(){
+
+  const initial =
+    currentUser.name.charAt(0).toUpperCase();
+
+
+  document.getElementById("avatar").textContent=initial;
+
+  document.getElementById("profileAvatar").textContent=initial;
+
+  document.getElementById("dashName").textContent=
+    currentUser.name;
+
+  document.getElementById("profileName").textContent=
+    currentUser.name;
+
+  document.getElementById("profileUsername").textContent=
+    "@"+currentUser.username;
+
+  document.getElementById("profileRole").textContent=
+    currentUser.role;
+
+  document.getElementById("topRole").textContent=
+    currentUser.role;
+
+
+}
+
+
+/* NAVIGATION */
+
+function openPage(id,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(id)
+    .classList.add("active");
+
+
+  document.querySelectorAll(".nav-item")
+    .forEach(n=>n.classList.remove("active"));
+
+  if(button) button.classList.add("active");
+
+
+  const titles={
+
+    dashboard:"Dashboard",
+    courses:"Kursus",
+    quiz:"Quiz",
+    progress:"Progress",
+    certificate:"Sertifikat",
+    verify:"Verifikasi",
+    founder:"Founder Dashboard",
+    profile:"Profil"
+
+  };
+
+
+  document.getElementById("topTitle").textContent=
+    titles[id]||"VEYDRA Academy";
+
+
+  document.getElementById("sidebar")
+    .classList.remove("open");
+
+
+  if(id==="founder"){
+
+    if(currentUser.role!=="Founder"){
+
+      openPage("dashboard");
+
+      return;
+
+    }
+
+    renderFounder();
+
+  }
+
+
+  if(id==="certificate") renderCertificate();
+
+  if(id==="progress") renderLessons();
+
+}
+
+
+/* COURSES */
+
+function renderCourses(){
+
+  const grid=document.getElementById("courseGrid");
+
+  grid.innerHTML="";
+
+
+  courses.forEach(course=>{
+
+    const progress =
+      currentUser.progress || 0;
+
+
+    grid.innerHTML+=`
+
+      <div class="card course-card">
+
+        <div class="course-icon">
+          ${course.icon}
+        </div>
+
+        <h3>${course.title}</h3>
+
+        <p>${course.desc}</p>
+
+        <div class="course-meta">
+          <span>${course.lessons.length} Materi</span>
+          <span>${progress}%</span>
+        </div>
+
+        <div class="progress">
+          <div style="width:${progress}%"></div>
+        </div>
+
+        <button
+          class="btn btn-primary"
+          style="margin-top:17px"
+          onclick="openCourse(${course.id})">
+          Buka Kursus
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* COURSE OPEN */
+
+function openCourse(id){
+
+  const course=courses.find(c=>c.id===id);
+
+  if(!course) return;
+
+
+  const firstLesson=course.lessons[0];
+
+
+  alert(
+    "Kursus: "+course.title+
+    "\n\nMateri pertama: "+firstLesson+
+    "\n\nProgress kamu: "+
+    (currentUser.progress||0)+"%"
+  );
+
+}
+
+
+/* LESSONS */
+
+function renderLessons(){
+
+  const list=document.getElementById("lessonList");
+
+  if(!list) return;
+
+  list.innerHTML="";
+
+
+  const completed=
+    currentUser.completedLessons || [];
+
+
+  const lessons=courses[0].lessons;
+
+
+  lessons.forEach((lesson,index)=>{
+
+    const done=
+      completed.includes(index);
+
+
+    list.innerHTML+=`
+
+      <div class="lesson ${done?'done':''}">
+
+        <div class="lesson-left">
+
+          <div class="lesson-num">
+            ${done?'✓':index+1}
+          </div>
+
+          <div>
+            <b>${lesson}</b>
+            <div style="font-size:12px;color:var(--muted);margin-top:4px">
+              Materi VEYDRA Academy
+            </div>
+          </div>
+
+        </div>
+
+        ${
+          done
+          ? `<span class="green">Selesai</span>`
+          : `<button class="btn btn-dark"
+               onclick="completeLesson(${index})">
+               Selesaikan
+             </button>`
+        }
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+/* COMPLETE LESSON */
+
+function completeLesson(index){
+
+  if(!currentUser.completedLessons)
+    currentUser.completedLessons=[];
+
+
+  if(!currentUser.completedLessons.includes(index)){
+
+    currentUser.completedLessons.push(index);
+
+  }
+
+
+  const total=courses[0].lessons.length;
+
+  currentUser.progress=
+    Math.round(
+      currentUser.completedLessons.length/total*100
+    );
+
+
+  updateCurrentUser();
+
+  renderLessons();
+
+  updateDashboard();
+
+  renderCourses();
+
+  toast("Materi ditandai selesai.");
+
+}
+
+
+/* UPDATE USER */
+
+function updateCurrentUser(){
+
+  let users=getUsers();
+
+  const index=users.findIndex(
+    u=>u.username===currentUser.username
+  );
+
+
+  if(index!==-1){
+
+    users[index]=currentUser;
+
+    saveUsers(users);
+
+  }
+
+
+  sessionStorage.setItem(
+    "veydra_current",
+    JSON.stringify(currentUser)
+  );
+
+}
+
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+  const progress=
+    currentUser.progress||0;
+
+
+  document.getElementById("statCourses").textContent=
+    courses.length;
+
+
+  document.getElementById("statProgress").textContent=
+    progress+"%";
+
+
+  document.getElementById("statScore").textContent=
+    currentUser.quiz===null ||
+    currentUser.quiz===undefined
+    ? "-"
+    : currentUser.quiz;
+
+
+  document.getElementById("statCertificate").textContent=
+    currentUser.certificate ? "1":"0";
+
+
+  document.getElementById("dashProgressBar")
+    .style.width=progress+"%";
+
+
+  document.getElementById("dashProgressText")
+    .textContent=progress+"%";
+
+
+  document.getElementById("progressBar")
+    .style.width=progress+"%";
+
+
+  document.getElementById("progressPercent")
+    .textContent=progress+"%";
+
+}
+
+
+/* QUIZ */
+
+function startQuiz(){
+
+  quizIndex=0;
+
+  quizScore=0;
+
+  renderQuestion();
+
+}
+
+
+function renderQuestion(){
+
+  const container=
+    document.getElementById("quizContainer");
+
+
+  const q=quizQuestions[quizIndex];
+
+
+  container.innerHTML=`
+
+    <div style="color:var(--muted);font-size:13px;margin-bottom:15px">
+      Pertanyaan ${quizIndex+1} dari ${quizQuestions.length}
+    </div>
+
+    <div class="question">
+      ${q.q}
+    </div>
+
+    <div class="options">
+
+      ${q.options.map((option,index)=>`
+
+        <button
+          class="option"
+          onclick="answerQuestion(${index})">
+          ${option}
+        </button>
+
+      `).join("")}
+
+    </div>
+
+  `;
+
+}
+
+
+function answerQuestion(index){
+
+  const q=quizQuestions[quizIndex];
+
+
+  if(index===q.answer){
+
+    quizScore++;
+
+  }
+
+
+  quizIndex++;
+
+
+  if(quizIndex<quizQuestions.length){
+
+    renderQuestion();
+
+  }else{
+
+    finishQuiz();
+
+  }
+
+}
+
+
+/* FINISH QUIZ */
+
+function finishQuiz(){
+
+  const score=
+    Math.round(
+      quizScore/quizQuestions.length*100
+    );
+
+
+  currentUser.quiz=score;
+
+
+  updateCurrentUser();
+
+  updateDashboard();
+
+
+  const passed=score>=70;
+
+
+  document.getElementById("quizContainer").innerHTML=`
+
+    <div class="quiz-result">
+
+      <h2>${passed?"Quiz Berhasil":"Quiz Belum Lulus"}</h2>
+
+      <div style="font-size:55px;font-weight:900;color:var(--green);margin:18px">
+        ${score}
+      </div>
+
+      <p style="color:var(--muted);line-height:1.7">
+        ${
+          passed
+          ? "Selamat! Nilai kamu memenuhi batas kelulusan."
+          : "Pelajari kembali materi lalu coba quiz lagi."
+        }
+      </p>
+
+      <button
+        class="btn btn-primary"
+        style="margin-top:20px"
+        onclick="startQuiz()">
+        Coba Lagi
+      </button>
+
+    </div>
+
+  `;
+
+
+  if(passed && currentUser.progress===100){
+
+    generateCertificate();
+
+  }
+
+}
+
+
+/* CERTIFICATE */
+
+function generateCertificate(){
+
+  if(!currentUser.certificate){
+
+    const random=
+      Math.floor(100000+Math.random()*900000);
+
+
+    currentUser.certificate=
+      "VYD-2026-"+random;
+
+
+    updateCurrentUser();
+
+    renderCertificate();
+
+    updateDashboard();
+
+    toast("Sertifikat berhasil diterbitkan.");
+
+  }
+
+}
+
+
+function renderCertificate(){
+
+  const area=
+    document.getElementById("certificateArea");
+
+
+  if(!currentUser.certificate){
+
+    area.innerHTML=`
+
+      <div class="card" style="text-align:center;padding:45px">
+
+        <h2>Sertifikat belum tersedia</h2>
+
+        <p style="color:var(--muted);margin:12px 0 22px;line-height:1.6">
+          Selesaikan seluruh materi dan lulus quiz
+          dengan nilai minimal 70 untuk mendapatkan
+          sertifikat.
+        </p>
+
+        <p>
+          Progress:
+          <b class="green">${currentUser.progress||0}%</b>
+        </p>
+
+        <p style="margin-top:7px">
+          Quiz:
+          <b class="green">
+            ${
+              currentUser.quiz===null ||
+              currentUser.quiz===undefined
+              ? "-"
+              : currentUser.quiz
+            }
+          </b>
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  area.innerHTML=`
+
+    <div id="certificatePrint" class="cert-card">
+
+      <div class="cert-logo">
+        VEYDRA
+      </div>
+
+      <div style="color:var(--muted);margin-top:6px">
+        ACADEMY
+      </div>
+
+      <div class="cert-title">
+        CERTIFICATE
+      </div>
+
+      <p style="color:var(--muted)">
+        Dengan ini menyatakan bahwa
+      </p>
+
+      <div class="cert-name">
+        ${currentUser.name}
+      </div>
+
+      <p class="cert-course">
+        telah menyelesaikan program pembelajaran
+        <br>
+        <b>VEYDRA Academy Basic</b>
+      </p>
+
+      <div class="cert-id">
+        Certificate ID:
+        <b>${currentUser.certificate}</b>
+      </div>
+
+      <div style="margin-top:30px;color:var(--muted)">
+        VEYDRA Academy
+        <br>
+        ${new Date().toLocaleDateString("id-ID")}
+      </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:18px">
+
+      <button class="btn btn-primary"
+              onclick="window.print()">
+        Download / Save PDF
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* VERIFY */
+
+function verifyCertificate(){
+
+  const id=
+    document.getElementById("verifyInput")
+      .value.trim()
+      .toUpperCase();
+
+
+  const users=getUsers();
+
+
+  const user=users.find(
+    u=>u.certificate &&
+       u.certificate.toUpperCase()===id
+  );
+
+
+  const result=
+    document.getElementById("verifyResult");
+
+
+  if(user){
+
+    result.innerHTML=`
+
+      <div class="verify-result"
+           style="border-color:#365541">
+
+        <div class="green"
+             style="font-size:28px;font-weight:900">
+          VERIFIED
+        </div>
+
+        <p style="margin-top:12px">
+          Sertifikat terdaftar di sistem demo VEYDRA Academy.
+        </p>
+
+        <div style="margin-top:15px;color:var(--muted);line-height:1.8">
+
+          Nama:
+          <b style="color:white">${user.name}</b>
+          <br>
+
+          Username:
+          ${user.username}
+          <br>
+
+          Certificate ID:
+          ${user.certificate}
+          <br>
+
+          Role:
+          ${user.role}
+
+        </div>
+
+      </div>
+
+    `;
+
+  }else{
+
+    result.innerHTML=`
+
+      <div class="verify-result"
+           style="border-color:#563333">
+
+        <div style="color:#ff8585;font-size:24px;font-weight:800">
+          NOT FOUND
+        </div>
+
+        <p style="color:var(--muted);margin-top:10px">
+          Nomor sertifikat tidak ditemukan.
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* FOUNDER */
+
+function renderFounder(){
+
+  if(currentUser.role!=="Founder") return;
+
+
+  const users=getUsers();
+
+  const students=
+    users.filter(u=>u.role==="Student");
+
+
+  const quiz=
+    students.filter(
+      u=>u.quiz!==null &&
+         u.quiz!==undefined
+    ).length;
+
+
+  const cert=
+    users.filter(u=>u.certificate).length;
+
+
+  document.getElementById("founderUsers")
+    .textContent=users.length;
+
+
+  document.getElementById("founderStudents")
+    .textContent=students.length;
+
+
+  document.getElementById("founderQuiz")
+    .textContent=quiz;
+
+
+  document.getElementById("founderCert")
+    .textContent=cert;
+
+
+  const table=
+    document.getElementById("userTable");
+
+
+  table.innerHTML="";
+
+
+  users.forEach(user=>{
+
+    table.innerHTML+=`
+
+      <tr>
+
+        <td>${user.name}</td>
+
+        <td>@${user.username}</td>
+
+        <td>
+          <span class="green">${user.role}</span>
+        </td>
+
+        <td>${user.progress||0}%</td>
+
+        <td>
+          ${
+            user.quiz===null ||
+            user.quiz===undefined
+            ? "-"
+            : user.quiz
+          }
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+}
+
+
+/* MOBILE SIDEBAR */
+
+function toggleSidebar(){
+
+  document.getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* TOAST */
+
+function toast(message){
+
+  const el=
+    document.getElementById("toast");
+
+
+  el.textContent=message;
+
+  el.classList.add("show");
+
+
+  setTimeout(()=>{
+
+    el.classList.remove("show");
+
+  },2500);
+
+}
+
+
+/* STARTUP */
+
+if(currentUser){
+
+  const users=getUsers();
+
+  const fresh=
+    users.find(
+      u=>u.username===currentUser.username
+    );
+
+
+  if(fresh){
+
+    currentUser=fresh;
+
+    showApp();
+
+  }else{
+
+    sessionStorage.removeItem("veydra_current");
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
